@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import JokeCard from "../JokeCard";
-import CatCard from "../CatCard";
-import AdviceCard from "../AdviceCard";
+import JokeCard from "../apiWork/JokeCard";
+import CatCard from "../apiWork/CatCard";
+import AdviceCard from "../apiWork/AdviceCard";
 
 const ApiPage = () => {
   const [joke, setJoke] = useState(null);
