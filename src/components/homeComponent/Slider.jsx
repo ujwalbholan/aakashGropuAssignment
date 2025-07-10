@@ -1,4 +1,3 @@
-import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -6,35 +5,36 @@ import "slick-carousel/slick/slick-theme.css";
 const slides = [
   {
     id: 1,
-    image: "../assets/slide1.jpg",
+    image: "https://picsum.photos/1200/500?random=1",
     title: "We Build Modern Digital Solutions",
-    description: "Empowering your business with next-gen tech.",
+    description: "Empowering your business with next Gen tech.",
   },
   {
     id: 2,
-    image: "/images/slide2.jpg",
+    image: "https://picsum.photos/1200/500?random=2",
     title: "Launch Fast. Grow Faster.",
     description: "Helping you scale efficiently and beautifully.",
   },
   {
     id: 3,
-    image: "/images/slide3.jpg",
+    image: "https://picsum.photos/1200/500?random=3",
     title: "Creative Minds. Reliable Code.",
     description: "Partner with people who care about quality.",
   },
   {
     id: 4,
-    image: "/images/slide4.jpg",
+    image: "https://picsum.photos/1200/500?random=4",
     title: "Custom Design. Scalable Code.",
     description: "Your product, your identity — powered by us.",
   },
   {
     id: 5,
-    image: "/images/slide5.jpg",
+    image: "https://picsum.photos/1200/500?random=5",
     title: "Ideas to Execution, Seamlessly",
     description: "Delivering end-to-end solutions with agility.",
   },
 ];
+
 
 const Carousel = () => {
   const settings = {

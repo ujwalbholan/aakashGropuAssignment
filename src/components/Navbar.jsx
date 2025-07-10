@@ -1,17 +1,29 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const timer = setTimeout(() => setShow(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
-  // Close mobile menu on link click
-  const handleLinkClick = () => setMenuOpen(false);
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setMenuOpen(false);
+    window.scrollTo(0, 0); // Scroll to top on route change
+  }, [location]);
+
+  const navLinks = [
+    { name: "Home", to: "/" },
+    { name: "About Us", to: "/about" },
+    { name: "Our Team", to: "/team" },
+    { name: "Contact", to: "/contact" },
+    { name: "API Page", to: "/apipage" },
+  ];
 
   return (
     <nav
@@ -22,45 +34,30 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
         <div className="text-2xl font-extrabold tracking-wide text-blue-700">
-          <Link
-            to="/"
-            className="hover:opacity-80 transition duration-300"
-            onClick={handleLinkClick}
-          >
+          <Link to="/" className="hover:opacity-80 transition duration-300">
             AakashLabs
           </Link>
         </div>
 
-        {/* Desktop Menu */}
+        {/* Desktop Navigation */}
         <ul className="hidden md:flex space-x-8 text-base font-medium">
-          {[
-            { name: "Home", href: "#home" },
-            { name: "About Us", href: "#about" },
-            { name: "Our Team", href: "#team" },
-            { name: "Contact", href: "#contact" },
-          ].map((item) => (
-            <li key={item.name}>
-              <a
-                href={item.href}
-                className="hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 transition-all duration-300 pb-1"
-                onClick={handleLinkClick}
+          {navLinks.map((link) => (
+            <li key={link.name}>
+              <Link
+                to={link.to}
+                className={`hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 transition-all duration-300 pb-1 ${
+                  location.pathname === link.to
+                    ? "text-blue-600 border-blue-600"
+                    : ""
+                }`}
               >
-                {item.name}
-              </a>
+                {link.name}
+              </Link>
             </li>
           ))}
-          <li>
-            <Link
-              to="/api-page"
-              className="hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 transition-all duration-300 pb-1"
-              onClick={handleLinkClick}
-            >
-              API Page
-            </Link>
-          </li>
         </ul>
 
-        {/* Mobile Hamburger Button */}
+        {/* Mobile Menu Toggle */}
         <button
           onClick={() => setMenuOpen((prev) => !prev)}
           className="md:hidden focus:outline-none"
@@ -75,7 +72,6 @@ const Navbar = () => {
             xmlns="http://www.w3.org/2000/svg"
           >
             {menuOpen ? (
-              // X icon when open
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -83,7 +79,6 @@ const Navbar = () => {
                 d="M6 18L18 6M6 6l12 12"
               />
             ) : (
-              // Hamburger icon when closed
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -95,38 +90,27 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Nav */}
       <div
         className={`md:hidden bg-white shadow-md overflow-hidden transition-max-height duration-300 ${
           menuOpen ? "max-h-96" : "max-h-0"
         }`}
       >
         <ul className="flex flex-col space-y-4 px-6 py-4 text-base font-medium">
-          {[
-            { name: "Home", href: "#home" },
-            { name: "About Us", href: "#about" },
-            { name: "Our Team", href: "#team" },
-            { name: "Contact", href: "#contact" },
-          ].map((item) => (
-            <li key={item.name}>
-              <a
-                href={item.href}
-                className="inline-block hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 transition-all duration-300 pb-1"
-                onClick={handleLinkClick}
+          {navLinks.map((link) => (
+            <li key={link.name}>
+              <Link
+                to={link.to}
+                className={`inline-block hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 transition-all duration-300 pb-1 ${
+                  location.pathname === link.to
+                    ? "text-blue-600 border-blue-600"
+                    : ""
+                }`}
               >
-                {item.name}
-              </a>
+                {link.name}
+              </Link>
             </li>
           ))}
-          <li>
-            <Link
-              to="/api-page"
-              className="inline-block hover:text-blue-600 border-b-2 border-transparent hover:border-blue-600 transition-all duration-300 pb-1"
-              onClick={handleLinkClick}
-            >
-              API Page
-            </Link>
-          </li>
         </ul>
       </div>
     </nav>

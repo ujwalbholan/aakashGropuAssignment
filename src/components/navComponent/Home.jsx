@@ -1,4 +1,4 @@
-import Carousel from "./Slider";
+import Carousel from "../homeComponent/Slider";
 
 function Home() {
   return (
