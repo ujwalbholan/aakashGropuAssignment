@@ -35,7 +35,6 @@ const slides = [
   },
 ];
 
-
 const Carousel = () => {
   const settings = {
     dots: true,
@@ -53,14 +52,24 @@ const Carousel = () => {
       <Slider {...settings}>
         {slides.map((slide) => (
           <div key={slide.id} className="relative">
+            {/* Image */}
             <img
               src={slide.image}
               alt={slide.title}
               className="w-full h-[500px] object-cover"
             />
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-white text-center px-4">
-              <h2 className="text-3xl md:text-5xl font-bold mb-4">{slide.title}</h2>
-              <p className="text-lg md:text-xl">{slide.description}</p>
+
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
+
+            {/* Text Content */}
+            <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 z-10">
+              <h2 className="text-3xl md:text-5xl font-extrabold text-white drop-shadow-md mb-4">
+                {slide.title}
+              </h2>
+              <p className="text-lg md:text-xl text-white drop-shadow">
+                {slide.description}
+              </p>
             </div>
           </div>
         ))}

@@ -9,10 +9,10 @@ const FeaturedWork = () => {
           {[1, 2, 3].map((item) => (
             <div
               key={item}
-              className="bg-white rounded shadow hover:shadow-xl transition overflow-hidden"
+              className="bg-white rounded-xl shadow-md hover:-translate-y-2 hover:shadow-2xl transition-all ease-in duration-300 overflow-hidden"
             >
               <img
-                src={`https://source.unsplash.com/400x250/?technology,project${item}`}
+                src={`https://picsum.photos/id/${item * 10}/400/250`}
                 alt={`Project ${item}`}
                 className="w-full h-48 object-cover"
               />
@@ -31,4 +31,5 @@ const FeaturedWork = () => {
     </section>
   );
 };
+
 export default FeaturedWork;

@@ -34,15 +34,12 @@ const Teams = () => {
       <div
         className="relative w-full h-screen flex flex-col justify-center items-center px-6 mb-20 overflow-hidden"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1531379410502-63bfe8cdafdd?auto=format&fit=crop&w=1950&q=80')`,
+          backgroundImage: `url('https://picsum.photos/id/1011/1920/1080')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
-
-        {/* Content */}
+        {/* Text content */}
         <div className="relative z-10 text-white text-center max-w-3xl px-4">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-6 drop-shadow-lg">
             Behind Every Great Project is a Great Team
