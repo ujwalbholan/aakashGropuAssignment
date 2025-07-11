@@ -14,10 +14,10 @@ const ContactForm = () => {
 
     emailjs
       .sendForm(
-        "service_3e2u1y8",    // Your actual service ID
-        "template_czb1405",   // Your actual template ID
+        "service_3e2u1y8", // Your actual service ID
+        "template_czb1405", // Your actual template ID
         form.current,
-        "f9oklXEMBP75n1X7Y"   // Your public key
+        "f9oklXEMBP75n1X7Y" // Your public key
       )
       .then(
         (result) => {
@@ -108,7 +108,7 @@ const ContactForm = () => {
       <button
         type="submit"
         disabled={loading}
-        className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition"
+        className="bg-gray-500 px-6 py-3 text-white rounded hover:bg-gray-700 transition"
       >
         {loading ? "Sending..." : "Send Message"}
       </button>
