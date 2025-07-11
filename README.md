@@ -10,6 +10,7 @@ Ensure you have Node.js and npm installed, then run:
 npm install
 
 3. Start the Development Server
+
 npm run dev
 
 Open http://localhost:5173 in your browser to view the app.
