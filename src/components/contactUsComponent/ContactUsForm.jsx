@@ -1,68 +1,50 @@
-import React, { useState } from "react";
+// src/components/ContactForm.jsx
+import React, { useRef, useState } from "react";
+import emailjs from "emailjs-com";
 
-const ContactUsForm = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    service: "",
-    company: "",
-    message: "",
-  });
-
-  const [status, setStatus] = useState("");
+const ContactForm = () => {
+  const form = useRef();
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState("");
 
-  const handleChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
+  const sendEmail = (e) => {
     e.preventDefault();
     setLoading(true);
     setStatus("");
 
-    try {
-      console.log("Submitted Data:", formData);
-
-      const response = await fetch("https://api.aakashlabs.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    emailjs
+      .sendForm(
+        "service_3e2u1y8",    // Your actual service ID
+        "template_czb1405",   // Your actual template ID
+        form.current,
+        "f9oklXEMBP75n1X7Y"   // Your public key
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          setStatus("Message sent successfully!");
+          form.current.reset();
         },
-        body: JSON.stringify(formData),
+        (error) => {
+          console.error(error.text);
+          setStatus("Failed to send message.");
+        }
+      )
+      .finally(() => {
+        setLoading(false);
       });
-
-      if (response.ok) {
-        setStatus("Message sent successfully!");
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          service: "",
-          company: "",
-          message: "",
-        });
-      } else {
-        setStatus("Failed to send message. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      setStatus("Something went wrong. Try again later.");
-    } finally {
-      setLoading(false);
-    }
   };
 
   return (
     <form
-      onSubmit={handleSubmit}
-      className="bg-white rounded-lg shadow-lg p-6 space-y-6 w-full"
+      ref={form}
+      onSubmit={sendEmail}
+      className="bg-white rounded-lg shadow-lg p-6 space-y-6 w-full max-w-2xl mx-auto"
     >
       <h3 className="text-2xl font-bold text-blue-800">Send Us a Message</h3>
+
+      {/* Hidden Subject Field */}
+      <input type="hidden" name="subject" value="Contact Us Form" />
 
       {/* Name and Email */}
       <div className="grid md:grid-cols-2 gap-4">
@@ -70,19 +52,15 @@ const ContactUsForm = () => {
           type="text"
           name="name"
           placeholder="Your Name"
-          value={formData.name}
-          onChange={handleChange}
-          className="p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           required
+          className="p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <input
           type="email"
           name="email"
           placeholder="Your Email"
-          value={formData.email}
-          onChange={handleChange}
-          className="p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           required
+          className="p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
@@ -92,17 +70,13 @@ const ContactUsForm = () => {
           type="tel"
           name="phone"
           placeholder="Phone Number"
-          value={formData.phone}
-          onChange={handleChange}
-          className="p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           required
+          className="p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <select
           name="service"
-          value={formData.service}
-          onChange={handleChange}
-          className="p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           required
+          className="p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="">Select Service</option>
           <option value="web-development">Web Development</option>
@@ -118,8 +92,6 @@ const ContactUsForm = () => {
         type="text"
         name="company"
         placeholder="Company Name"
-        value={formData.company}
-        onChange={handleChange}
         className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 
@@ -128,17 +100,15 @@ const ContactUsForm = () => {
         name="message"
         rows="5"
         placeholder="Your Message"
-        value={formData.message}
-        onChange={handleChange}
-        className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
         required
+        className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
       ></textarea>
 
       {/* Submit Button */}
       <button
         type="submit"
         disabled={loading}
-        className="bg-gray-500 px-6 py-3 text-white rounded hover:bg-gray-700 transition"
+        className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition"
       >
         {loading ? "Sending..." : "Send Message"}
       </button>
@@ -153,4 +123,4 @@ const ContactUsForm = () => {
   );
 };
 
-export default ContactUsForm;
+export default ContactForm;
